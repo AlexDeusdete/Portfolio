@@ -4,19 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Portfólio</h1>,
+<div class="container pt-3">
+    <div class="row">
+        @foreach (var item in Model)
+        {
 
-<div class="row">
-    @foreach (var item in Model)
-    {
+            <div class="col-lg-4 text-center">
+                <img class="bd-placeholder-img rounded-circle img-thumbnail" width="140" height="140" src="~/Images/no-picture-taking.png" role="img" alt="Sem Foto"  />
+                <h2>@Html.DisplayFor(modelItem => item.Person.Name)</h2>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                <p><a class="btn btn-secondary" role="button" asp-action="Details" asp-route-id="@item.ID">Detalhes</a></p>
 
-        <div class="col-lg-4 text-center">
-            <img class="bd-placeholder-img rounded-circle img-thumbnail" width="140" height="140" src="~/Images/no-picture-taking.png" role="img" alt="Sem Foto"  />
-            <h2>@Html.DisplayFor(modelItem => item.Person.Name)</h2>
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            <p><a class="btn btn-secondary" role="button" asp-action="Details" asp-route-id="@item.ID">Detalhes</a></p>
+            </div>
 
-        </div>
-
-    }
+        }
+    </div>
 </div>

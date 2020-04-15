@@ -8,6 +8,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrjPortfolio.Models
 {
+    public enum Area
+    {
+        Design, Programação, Contabilidade, Saude, Artesanato
+    }
     public class Portfolio
     {
         public int ID { get; set; }
@@ -22,6 +26,7 @@ namespace PrjPortfolio.Models
         public bool Active { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
         public DateTime DateCriation { get; set; }
+        public Area Area { get; set; }
         public Int32 FristColorArgb
         {
             get
