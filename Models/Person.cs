@@ -27,6 +27,7 @@ namespace PrjPortfolio.Models
         }
 
         [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Telefone")]
         public string Phone { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -34,7 +35,12 @@ namespace PrjPortfolio.Models
         public byte[] Photo { get; set; }
         [StringLength(200)]
         public string PhotoName { get; set; }
+        [Display(Name = "Idade")]
+        public int Age { get; set; }
+        [Display(Name = "Cargo")]
+        public string Post { get; set; }
 
-        public ICollection<Person_SocialMedia> SocialMedias { get; set; }
+        public virtual ICollection<Person_SocialMedia> SocialMedias { get; set; }
+        public virtual ICollection<Education> Educations { get; set; }
     }
 }

@@ -54,8 +54,8 @@ namespace PrjPortfolio.Models
         [NotMapped]
         public Color SecondColor { get; set; }
 
-        public Person Person { get; set; }
-        public ICollection<Portfolio_Projects> Projects { get; set; }
-        public ICollection<Portfolio_Images> Images { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual ICollection<Portfolio_Projects> Projects { get; set; }
+        public virtual ICollection<Portfolio_Images> Images { get; set; }
     }
 }

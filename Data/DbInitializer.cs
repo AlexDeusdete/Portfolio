@@ -31,6 +31,54 @@ namespace PrjPortfolio.Data
             context.Person_SocialMedias.Add(person_SocialMedia);
             context.SaveChanges();
 
+            var educations = new Education[]
+            {
+                new Education
+                {
+                     Institution = "Uninove",
+                     CourseName = "Ciencia da Computação",
+                     CertificateCode = "ELGASDFIAJD15ASDFASD562333",
+                     CertificateUrl = "",
+                     Index = 1,
+                     PersonID = 1,
+                     InitialDate = DateTime.Today.AddYears(-4),
+                     EndDate = DateTime.Today
+                },
+                new Education
+                {
+                     Institution = "Tranning",
+                     CourseName = "Getão de Projetos",
+                     CertificateCode = "ELGASDFIAJD15ASDFASD562333",
+                     CertificateUrl = "",
+                     Index = 2,
+                     PersonID = 1,
+                     InitialDate = DateTime.Today.AddYears(-1),
+                     EndDate = DateTime.Today
+                },
+                new Education
+                {
+                     Institution = "Axelios",
+                     CourseName = "ITIL 4",
+                     CertificateCode = "ELGASDFIAJD15ASDFASD562333",
+                     CertificateUrl = "",
+                     Index = 3,
+                     PersonID = 1,
+                     InitialDate = DateTime.Today.AddMonths(-6),
+                     EndDate = DateTime.Today
+                },
+                new Education
+                {
+                     Institution = "Franco Montoro",
+                     CourseName = "Ensino Medio",
+                     CertificateCode = "ELGASDFIAJD15ASDFASD562333",
+                     CertificateUrl = "",
+                     Index = 4,
+                     PersonID = 1,
+                     InitialDate = DateTime.Today.AddYears(-3),
+                     EndDate = DateTime.Today
+                }
+            };
+
             var portfolio = new Models.Portfolio
             {
                 Active = true,
@@ -38,7 +86,7 @@ namespace PrjPortfolio.Data
                 Description = "Protfolio do cara do teste ele testa mesmo em" +
                                 "AAAAAAAAAAAEEEEEEEEEEEE",
                 FristColor = Color.White,
-                SecondColor = Color.Black,
+                SecondColor = Color.Gray,
                 PersonID = 1,
                 Title = "TESTEEEEEEEEEEEEEE"
             };

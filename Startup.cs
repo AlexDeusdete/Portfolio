@@ -28,7 +28,7 @@ namespace PrjPortfolio
             services.AddControllersWithViews();
 
             services.AddDbContext<PortfolioContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }

@@ -24,6 +24,6 @@ namespace PrjPortfolio.Models
         [Required]
         public string AccessLink { get; set; }
 
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

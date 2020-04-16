@@ -29,6 +29,6 @@ namespace PrjPortfolio.Models
         [DataType(DataType.DateTime)]
         public DateTime DateCriation { get; set; }
 
-        public ICollection<Portfolio_Projects_Images> Images { get; set; }
+        public virtual ICollection<Portfolio_Projects_Images> Images { get; set; }
     }
 }
