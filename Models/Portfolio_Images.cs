@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrjPortfolio.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,9 @@ namespace PrjPortfolio.Models
     {
         public int ID { get; set; }
         public int PortfolioID { get; set; }
+        [ImageSize(2840, 4260, 1.5)]
         public byte[] Photo { get; set; }
+        public string ContentTypeImage { get; set; }
         [StringLength(150)]
         public string PhotoName { get; set; }
     }

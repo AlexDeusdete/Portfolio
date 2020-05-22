@@ -1,0 +1,102 @@
+﻿@model IEnumerable<PrjPortfolio.Models.Education>
+
+<p>
+    <button type="button" onclick="ClearEducation()" class="btn btn-outline-success m-2" data-toggle="modal" data-target="#education">
+        <i class="fas fa-plus-circle"></i>
+    </button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Institution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InitialDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CertificateCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InitialDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CertificateCode)
+                </td>
+                <td>
+                    <button id="@item.ID" type="button" onclick="EditEducation(@item.ID)" class="btn btn-outline-success m-2" data-toggle="modal" data-target="#education">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="education" tabindex="-1" role="dialog" aria-labelledby="educationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="educationLabel">Formação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" id="id">
+                    <div class="col-7">
+                        <label for="Institution" class="col-form-label">Instituição</label>
+                        <input type="text" class="form-control" id="Institution">
+                    </div>
+                    <div class="col-12">
+                        <label for="CourseName" class="col-form-label">Curso</label>
+                        <input type="text" class="form-control" id="CourseName">
+                    </div>
+                    <div class="col-6">
+                        <label for="InitialDate" class="col-form-label">Data Inicial</label>
+                        <input type="text" class="form-control" id="InitialDate">
+                    </div>
+                    <div class="col-6">
+                        <label for="EndDate" class="col-form-label">Data Final</label>
+                        <input type="text" class="form-control" id="EndDate">
+                    </div>
+                    <div class="col-6">
+                        <label for="CertificateCode" class="col-form-label">Codigo do Certificado</label>
+                        <input type="text" class="form-control" id="CertificateCode">
+                    </div>
+                    <div class="col-12">
+                        <label for="CertificateUrl" class="col-form-label">URL do Certificado</label>
+                        <input type="text" class="form-control" id="CertificateUrl">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" onclick="SaveEducation()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -58,7 +58,7 @@ namespace PrjPortfolio.Migrations
 
                     b.HasIndex("PersonID");
 
-                    b.ToTable("Education");
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("PrjPortfolio.Models.Person", b =>
@@ -70,6 +70,10 @@ namespace PrjPortfolio.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.Property<string>("ContentTypeImage")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -182,6 +186,9 @@ namespace PrjPortfolio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ContentTypeImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
@@ -214,7 +221,6 @@ namespace PrjPortfolio.Migrations
                         .HasMaxLength(4000);
 
                     b.Property<string>("GitHub")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Language")
@@ -241,6 +247,9 @@ namespace PrjPortfolio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentTypeImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");

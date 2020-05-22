@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PrjPortfolio.Models.Portfolio_Images>
+
+    <div class="row">
+        <div class="col-6">
+            <span class="shadow btn btn-outline-success btn-file mt-3" role="button">
+                Selecionar Imagem <input type="file" name="Img" id="imgCapa">
+            </span>
+        </div>
+        <div class="col-6">
+            <button onclick="SaveImgCapa()" id="AddImgCapa" type="button" class="shadow btn btn-outline-success btn-file mt-3">
+                Add
+            </button>
+        </div>
+    </div>
+<p>
+    <h5>Capa do Portfólio</h5>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img id="imgFoto" class="shadow img-fluid mx-auto d-block"
+                     src="@Url.Action("RenderPhotoById", "Portfolios", new {type = "portfolio", id = item.PortfolioID})"
+                     style="width:90%;" />
+            </td>
+            <td>
+                <button id="@item.ID" type="button" onclick="DelimgCapa(@item.ID)" class="btn btn-outline-danger m-2">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

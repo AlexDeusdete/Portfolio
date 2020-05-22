@@ -78,6 +78,11 @@ namespace PrjPortfolio.Data
                      EndDate = DateTime.Today
                 }
             };
+            foreach (var item in educations)
+            {
+                context.Educations.Add(item);
+            }
+            context.SaveChanges();
 
             var portfolio = new Models.Portfolio
             {
@@ -100,7 +105,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.CSharp,
+                    Language = Language.dotNet,
                     Name = "Batata",
                     PortfolioID = 1
                 },
@@ -109,7 +114,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.CSharp,
+                    Language = Language.dotNet,
                     Name = "BBBBBBBBB",
                     PortfolioID = 1
                 },
@@ -118,7 +123,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.CSharp,
+                    Language = Language.dotNet,
                     Name = "AAAAAAAAAAA",
                     PortfolioID = 1
                 }

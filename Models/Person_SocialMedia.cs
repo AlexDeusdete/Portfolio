@@ -4,7 +4,7 @@ namespace PrjPortfolio.Models
 {
     public enum SocialMedia
     {
-        GitHub, Linkedin, Facebook, Twitter
+        GitHub, Linkedin, Twitter
     }
     public class Person_SocialMedia
     {

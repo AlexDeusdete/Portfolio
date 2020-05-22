@@ -9,7 +9,7 @@ namespace PrjPortfolio.Models
 {
     public enum Language
     {
-        CSharp, Delphi, JavaScript, Python, SQL
+        dotNet, Delphi, JavaScript, Python, SQL
     }
     public class Portfolio_Projects
     {
@@ -17,16 +17,18 @@ namespace PrjPortfolio.Models
         public int PortfolioID { get; set; }
         [Required]
         [StringLength(50)]
-        public string Name { get; set; }
-        [Required]       
+        [Display(Name = "Nome")]
+        public string Name { get; set; }     
         [DataType(DataType.Url)]
         public string GitHub { get; set; }
         [StringLength(4000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Descrição")]
         public string Description { get; set; }
-        [Required]
+        [Display(Name = "Linguagem")]
         public Language Language { get; set; }
         [DataType(DataType.DateTime)]
+        [Display(Name = "Data de Criação")]
         public DateTime DateCriation { get; set; }
 
         public virtual ICollection<Portfolio_Projects_Images> Images { get; set; }
