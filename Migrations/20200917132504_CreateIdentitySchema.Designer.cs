@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrjPortfolio.Data;
 
 namespace PrjPortfolio.Migrations
 {
     [DbContext(typeof(PortfolioContext))]
-    partial class PortfolioContextModelSnapshot : ModelSnapshot
+    [Migration("20200917132504_CreateIdentitySchema")]
+    partial class CreateIdentitySchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,11 +351,6 @@ namespace PrjPortfolio.Migrations
 
                     b.Property<int>("Area")
                         .HasColumnType("int");
-
-                    b.Property<string>("AspNetUsersID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
 
                     b.Property<DateTime>("DateCriation")
                         .HasColumnType("datetime2");

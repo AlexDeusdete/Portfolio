@@ -15,6 +15,9 @@ namespace PrjPortfolio.Models
     public class Portfolio
     {
         public int ID { get; set; }
+        [Required]
+        [StringLength(450)]
+        public string AspNetUsersID { get; set; }
         public int PersonID { get; set; }
         [Required]
         [StringLength(50)]

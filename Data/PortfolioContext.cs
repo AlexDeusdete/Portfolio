@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PrjPortfolio.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PrjPortfolio.Data
 {
-    public class PortfolioContext : DbContext
+    public class PortfolioContext : IdentityDbContext<ApplicationUser>
     {
         public PortfolioContext(DbContextOptions<PortfolioContext> options) : base(options)
         {

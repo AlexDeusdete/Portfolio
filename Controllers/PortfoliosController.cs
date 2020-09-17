@@ -5,7 +5,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +21,14 @@ namespace PrjPortfolio.Controllers
     public class PortfoliosController : Controller
     {
         private readonly PortfolioContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public PortfoliosController(PortfolioContext context)
+        public PortfoliosController(PortfolioContext context,
+                                    UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Portfolios
@@ -67,6 +73,7 @@ namespace PrjPortfolio.Controllers
         {
             if (ModelState.IsValid)
             {
+                portfolio.AspNetUsersID = await _userManager.GetUserIdAsync(await GetCurrentUserAsync());
                 _context.Add(portfolio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -76,6 +83,7 @@ namespace PrjPortfolio.Controllers
         }
 
         // GET: Portfolios/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +93,13 @@ namespace PrjPortfolio.Controllers
 
             var portfolio = await _context.Portfolios.FindAsync(id);
             if (portfolio == null)
+            {
+                return NotFound();
+            }
+
+            var userId = await _userManager.GetUserIdAsync(await GetCurrentUserAsync());
+
+            if (userId != portfolio.AspNetUsersID)
             {
                 return NotFound();
             }
