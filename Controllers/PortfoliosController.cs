@@ -431,7 +431,7 @@ namespace PrjPortfolio.Controllers
             _context.SaveChanges();
             return ViewComponent("Project", new { portfolioID });
         }
-
+        
         [HttpPost]
         public IActionResult DeleteProject(int id, int portfolioID)
         {
