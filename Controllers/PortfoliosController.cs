@@ -69,17 +69,15 @@ namespace PrjPortfolio.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,PersonID,Title,Description,Active,DateCriation,FristColorArgb,SecondColorArgb")] Portfolio portfolio)
+        public async Task<IActionResult> Create([Bind("ID,PersonID,Title,Description,Person")] Portfolio portfolio)
         {
-            if (ModelState.IsValid)
-            {
-                portfolio.AspNetUsersID = await _userManager.GetUserIdAsync(await GetCurrentUserAsync());
-                _context.Add(portfolio);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PersonID"] = new SelectList(_context.People, "ID", "Email", portfolio.PersonID);
-            return View(portfolio);
+            portfolio.AspNetUsersID = await _userManager.GetUserIdAsync(await GetCurrentUserAsync());
+            portfolio.Person.Email = await _userManager.GetEmailAsync(await GetCurrentUserAsync());
+
+            _context.Add(portfolio);
+            await _context.SaveChangesAsync();
+            
+            return RedirectToAction(nameof(Edit), new { id = portfolio.ID });
         }
 
         // GET: Portfolios/Edit/5
