@@ -33,6 +33,7 @@
     <form asp-action="Edit" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="AspNetUsersID" />
         <input type="hidden" asp-for="PersonID" />
         <input type="hidden" asp-for="Person.ID" />
 

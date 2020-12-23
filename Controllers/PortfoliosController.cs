@@ -99,7 +99,7 @@ namespace PrjPortfolio.Controllers
 
             if (userId != portfolio.AspNetUsersID)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Details), new { _context.Portfolios.FirstOrDefault(x => x.AspNetUsersID == userId).ID }); 
             }
             return View(portfolio);
         }
