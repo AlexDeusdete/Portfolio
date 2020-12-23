@@ -4,150 +4,130 @@
     ViewData["Title"] = "Details";
 }
 
-    <div style=" background-color:@Model.SecondColorHex; color:@Model.FristColorHex; background-image: url('/Images/texture1.png')">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm fixed-top navbar-light box-shadow" style="z-index:2">
-            <a class="navbar-brand" style="color:@Model.FristColorHex;" asp-area="" asp-controller="Portfolios" asp-action="Index">Seu Portfólio</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="btn btn-success" role="button" asp-action="Edit" asp-route-id="@Model.ID">Editar</a>                       
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.FristColorHex;" href="#start">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.FristColorHex;" href="#projects">Projetos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.FristColorHex;" href="#PersonalInformation">Informações Pessoais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.FristColorHex;" href="#Education">Formação</a>
-                    </li>
-                    @foreach (var item in Model.Person.SocialMedias)
-                    {
-                        @if (item.SocialMedia == SocialMedia.GitHub)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/GitHub.png" width="20" height="20" /></a>
-                            </li>
-                        }
-
-                        @if (item.SocialMedia == SocialMedia.Linkedin)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/linkedin.png" width="20" height="20" /></a>
-                            </li>
-                        }
-
-                        @if (item.SocialMedia == SocialMedia.Twitter)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/twitter.png" width="20" height="20" /></a>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-        </nav>
-        <div id="start" class="min-vh-100">
-            <div id="carouselDetails" class="carousel slide" data-ride="carousel">
-                <div class="carousel-caption" style="height:90%">
-                    <img class="rounded-circle img-fluid align-middle"
-                         style="width:25%; border-style: solid; border-width:10px; border-color:@Model.FristColorHex;"
-                         src="~/Images/no-picture-taking.png"
-                         role="img"
-                         alt="Sem Foto" />
-                    <h1>@Html.DisplayFor(model => model.Person.CompletName)</h1>
-                </div>
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselDetails" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselDetails" data-slide-to="1"></li>
-                </ol>
-                <div class="carousel-inner ">
-                    <div class="carousel-item active">
-                        <img src="~/Images/nasa.jpg" class="d-block w-100" alt="Imagem do planeta tirada pela nasa" />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="~/Images/keyboard.jpg" class="d-block w-100" alt="Teclado retro iluminado" />
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselDetails" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselDetails" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Próximo</span>
-                </a>
-            </div>
-            <div class="container mt-3">
+<div style="background-color:@Model.SecondColorHex; color:@Model.SecondColorHex; background-image: url('/Images/texture1.png')">
+    <div class="container p-0 shadow-lg" style="background-color:@Model.FristColorHex">
+        <div id="start" class="row pt-4">
+            <div class="col-12 pb-2 ml-3">
                 <h2>
-                    @Html.DisplayFor(model => model.Title)
+                    @Html.DisplayFor(model => model.Person.CompletName)
                 </h2>
-                <h3>
-                    @Html.DisplayFor(model => model.Area)
-                </h3>
-                <h4 class="mt-4">
-                    @Html.DisplayFor(model => model.Description)
+                <h4>
+                    @Html.DisplayFor(model => model.Person.Post)
                 </h4>
             </div>
         </div>
-        <div id="projects" class="min-vh-100 container">
-            <h1>Projetos</h1>
-            <div class="row mt-3">
-                @foreach (var item in Model.Projects)
-                {
-                    <div class="col-md-6">
-                        <div class="card flex-md-row mb-4 box-shadow h-md-250" style="background:@Model.FristColorHex;">
-                            <div class="card-body d-flex flex-column align-items-start" style="color:@Model.SecondColorHex;">
-                                <strong class="d-inline-block mb-2 text-success">@Html.DisplayFor(modelitem => item.Language)</strong>
-                                <h3 class="mb-0">@Html.DisplayFor(modelitem => item.Name)</h3>
-                                <div class="mb-1">@Html.DisplayFor(modelitem => item.DateCriation)</div>
-                                <p class="card-text mb-auto">@Html.DisplayFor(modelitem => item.Description)</p>
-                                @if (!String.IsNullOrEmpty(item.GitHub))
-                                {
-                                    <a class="nav-link" target="_blank" href="@item.GitHub"><img class="img-fluid" src="~/Images/GitHub.png" width="20" height="20" /></a>
-                                }
-                            </div>
-                            <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" style="width: 200px; height: 250px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1717e043556%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1717e043556%22%3E%3Crect%20width%3D%22200%22%20height%3D%22250%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2256.20000076293945%22%20y%3D%22131%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div id="PersonalInformation" class="min-vh-100 container" style="color:@Model.FristColorHex;">
-            <h1>Informações Pessoais</h1>
-            <h5 class="mt-3 font-weight-bold">@Html.DisplayFor(model => model.Person.CompletName)</h5>
-            <div class="row mt-3">
-                <div class="col-2"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Post)</h6></div>
-                <div class="col-10"><h6>@Html.DisplayFor(model => model.Person.Post)</h6></div>
-                <div class="col-2"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Age)</h6></div>
-                <div class="col-10"><h6>@Html.DisplayFor(model => model.Person.Age)</h6></div>
-                <div class="col-2"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Phone)</h6></div>
-                <div class="col-10"><h6>@Html.DisplayFor(model => model.Person.Phone)</h6></div>
-                <div class="col-2"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Email)</h6></div>
-                <div class="col-10"><h6>@Html.DisplayFor(model => model.Person.Email)</h6></div>
-            </div>
-        </div>
-        <div id="Education" class="min-vh-100 container">
-            <h1>Formação</h1>
-            @foreach (var modelItem in Model.Person.Educations.OrderBy(a => a.Index))
-            {
-                <div class="mt-3 pt-4"
-                     style="color:@Model.FristColorHex;
-                        border-top: 1px solid @Model.FristColorHex !important;">
-                    <h5 class="font-weight-bold">@Html.DisplayFor(item => modelItem.Institution)</h5>
-                    <h5>@Html.DisplayFor(item => modelItem.CourseName)</h5>
-                    <h5>@Html.DisplayFor(item => modelItem.InitialDate)   @Html.DisplayFor(item => modelItem.EndDate)</h5>
-                    <a href="@modelItem.CertificateUrl">
-                        <h5>@Html.DisplayFor(item => modelItem.CertificateCode)</h5>
-                    </a>                    
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color:@Model.SecondColor;" asp-area="" asp-controller="Portfolios" asp-action="Index">Portfólio</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse flex-sm-row-reverse">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-success" role="button" asp-action="Edit" asp-route-id="@Model.ID">Editar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.SecondColor;" href="#start">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.SecondColor;" href="#projects">Projetos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.SecondColor;" href="#PersonalInformation">Informações Pessoais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-hover font-weight-bold" role="button" style="color:@Model.SecondColor;" href="#Education">Formação</a>
+                        </li>
+                        @foreach (var item in Model.Person.SocialMedias)
+                        {
+                            @if (item.SocialMedia == SocialMedia.GitHub)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/GitHub.png" width="20" height="20" /></a>
+                                </li>
+                            }
+
+                            @if (item.SocialMedia == SocialMedia.Linkedin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/linkedin.png" width="20" height="20" /></a>
+                                </li>
+                            }
+
+                            @if (item.SocialMedia == SocialMedia.Twitter)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" target="_blank" href="@item.AccessLink"><img class="img-fluid" src="~/Images/twitter.png" width="20" height="20" /></a>
+                                </li>
+                            }
+                        }
+                    </ul>
                 </div>
-            }
+            </div>
+        </nav>
+        <div class="row">
+            <div id="PersonalInformation" class="col-md-5 col-lg-3 order-md-last pt-3">
+                <h6 class="pt-5">Quem sou Eu?</h6>
+                <img class="rounded-circle img-fluid mx-auto d-block"
+                     style="width:50%; border-style: solid; border-width:5px; border-color:@Model.SecondColorHex;"
+                     src="~/Images/no-picture-taking.png"
+                     role="img"
+                     alt="Sem Foto" />
+                <h5>@Html.DisplayFor(model => model.Person.CompletName)</h5>
+                <div class="row mt-3">
+                    <div class="col-4"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Post)</h6></div>
+                    <div class="col-8"><h6>@Html.DisplayFor(model => model.Person.Post)</h6></div>
+                    <div class="col-4"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Age)</h6></div>
+                    <div class="col-8"><h6>@Html.DisplayFor(model => model.Person.Age)</h6></div>
+                    <div class="col-4"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Phone)</h6></div>
+                    <div class="col-8"><h6>@Html.DisplayFor(model => model.Person.Phone)</h6></div>
+                    <div class="col-4"><h6 class="font-weight-bold">@Html.DisplayNameFor(model => model.Person.Email)</h6></div>
+                    <div class="col-8"><h6>@Html.DisplayFor(model => model.Person.Email)</h6></div>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-9">
+                <div id="projects" class="min-vh-100 container">
+                    <h3>Projetos</h3>
+                    <div class="row mt-3">
+                        @foreach (var item in Model.Projects)
+                        {
+                            <div class="col-lg-6">
+                                <div class="card mb-4 box-shadow h-md-250" style="background:@Model.FristColorHex;">
+                                    <img class="card-img-top" width="100%" height="250" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1717e043556%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1717e043556%22%3E%3Crect%20width%3D%22200%22%20height%3D%22250%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2256.20000076293945%22%20y%3D%22131%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                                    <div class="card-body d-flex flex-column align-items-start" style="color:@Model.SecondColorHex;">
+                                        <strong class="d-inline-block mb-2 text-success">@Html.DisplayFor(modelitem => item.Language)</strong>
+                                        <h4 class="mb-0">@Html.DisplayFor(modelitem => item.Name)</h4>
+                                        <div class="mb-1">@Html.DisplayFor(modelitem => item.DateCriation)</div>
+                                        <p class="card-text mb-auto">@Html.DisplayFor(modelitem => item.Description)</p>
+                                        @if (!String.IsNullOrEmpty(item.GitHub))
+                                        {
+                                            <a class="nav-link" target="_blank" href="@item.GitHub"><img class="img-fluid" src="~/Images/GitHub.png" width="20" height="20" /></a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="Education" class="min-vh-100 container pt-3">
+                    <h3 class="pt-5">Formação</h3>
+                    @foreach (var modelItem in Model.Person.Educations.OrderBy(a => a.Index))
+                    {
+                        <div class="mt-3 pt-4"
+                             style="color:@Model.SecondColorHex;
+                             border-top: 1px solid @Model.SecondColorHex !important;">
+                            <h5 class="font-weight-bold">@Html.DisplayFor(item => modelItem.Institution)</h5>
+                            <h5>@Html.DisplayFor(item => modelItem.CourseName)</h5>
+                            <h5>@Html.DisplayFor(item => modelItem.InitialDate)   @Html.DisplayFor(item => modelItem.EndDate)</h5>
+                            <a href="@modelItem.CertificateUrl">
+                                <h5>@Html.DisplayFor(item => modelItem.CertificateCode)</h5>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
+</div>

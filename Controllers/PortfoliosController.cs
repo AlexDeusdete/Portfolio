@@ -28,13 +28,13 @@ namespace PrjPortfolio.Controllers
                                     UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _userManager = userManager;
+            _userManager = userManager;            
         }
 
         // GET: Portfolios
         public async Task<IActionResult> Index()
         {
-            var portfolioContext = _context.Portfolios.Include(p => p.Person);
+            var portfolioContext = _context.Portfolios.Include(p => p.Person);            
             return View(await portfolioContext.ToListAsync());
         }
 
