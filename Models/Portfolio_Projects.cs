@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,10 +8,18 @@ using System.Threading.Tasks;
 
 namespace PrjPortfolio.Models
 {
-    public enum Language
+    public enum Tool
     {
-        dotNet, Delphi, JavaScript, Python, SQL
+        dotNet, 
+        Delphi, 
+        JavaScript, 
+        Python, 
+        SQL,
+        Xamarin,
+        dotNetCore,
+        SQLServer      
     }
+
     public class Portfolio_Projects
     {
         public int ID { get; set; }
@@ -25,8 +34,23 @@ namespace PrjPortfolio.Models
         [DataType(DataType.MultilineText)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
-        [Display(Name = "Linguagem")]
-        public Language Language { get; set; }
+        public string InternalTools { get; set; }
+        [NotMapped]
+        [Display(Name = "Ferramentas")]
+        public List<Tool> Tools 
+        {
+            get
+            {
+                if (InternalTools != null)
+                    return Array.ConvertAll(InternalTools.Split(';'), int.Parse).Select(x => (Tool)x).ToList();
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                    InternalTools = String.Join(";", value.Select(x => Convert.ToInt32(x).ToString()).ToArray());
+            } 
+        }
         [DataType(DataType.DateTime)]
         [Display(Name = "Data de Criação")]
         public DateTime DateCriation { get; set; }

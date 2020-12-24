@@ -309,14 +309,14 @@ function SaveProject() {
     var name = $("#Name").val();
     var gitHub = $("#GitHubProject").val();
     var description = $("#DescriptionProject").val();
-    var language = $("#Language").val();
+    var tools = $("#Tools").val();
     var dateCriation = $("#DateCriation").val();
 
     var url = "/Portfolios/SaveProject";
 
     $.ajax({
         url: url,
-        data: { ID: id, PortfolioID: portfolioID, Name: name, GitHub: gitHub, Description: description, Language: language, DateCriation: dateCriation},
+        data: { ID: id, PortfolioID: portfolioID, Name: name, GitHub: gitHub, Description: description, InternalTools: tools.join(";"), DateCriation: dateCriation},
         type: "PUT",
         dataType: "html"
     }).then(function (result) {

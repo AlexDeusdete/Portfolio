@@ -283,7 +283,7 @@ namespace PrjPortfolio.Controllers
                 Name = item.Name,
                 GitHub = item.GitHub,
                 DateCriation = item.DateCriation,
-                Language = item.Language,
+                Tools = item.Tools,
                 Description = item.Description,
             }).FirstOrDefault();
 

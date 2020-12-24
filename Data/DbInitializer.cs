@@ -105,7 +105,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.dotNet,
+                    Tools = new List<Tool>(){Tool.dotNet, Tool.Xamarin},
                     Name = "Batata",
                     PortfolioID = 1
                 },
@@ -114,7 +114,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.dotNet,
+                    Tools = new List<Tool>(){Tool.dotNet},
                     Name = "BBBBBBBBB",
                     PortfolioID = 1
                 },
@@ -123,7 +123,7 @@ namespace PrjPortfolio.Data
                     DateCriation = DateTime.Now,
                     GitHub = "https://medium.com/@fulviocanducci/asp-net-mvc-core-e-entity-framework-core-gravando-fotos-em-uma-tabela-do-banco-de-dados-ad9441248c93",
                     Description = "Projeto do teste boladao",
-                    Language = Language.dotNet,
+                    Tools =  new List<Tool>(){Tool.SQL, Tool.Xamarin},
                     Name = "AAAAAAAAAAA",
                     PortfolioID = 1
                 }

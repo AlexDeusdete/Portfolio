@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Language)
+                @Html.DisplayNameFor(model => model.Tools)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateCriation)
@@ -35,31 +35,36 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a href="@item.GitHub"><i class="fab fa-github"></i></a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Language)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCriation)
-                </td>
-                <td>
-                    <button id="@item.ID" type="button" onclick="EditProject(@item.ID)" class="btn btn-outline-success m-2" data-toggle="modal" data-target="#project">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button id="@item.ID" type="button" onclick="DeleteProject(@item.ID)" class="btn btn-outline-danger m-2">
-                        <i class="fas fa-minus-circle"></i>
-                    </button>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a href="@item.GitHub"><i class="fab fa-github"></i></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            @if (item.Tools != null)
+            {
+                <td>@String.Join(" ", item.Tools?.Select(X => X.ToString()).ToArray())</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCriation)
+            </td>
+            <td>
+                <button id="@item.ID" type="button" onclick="EditProject(@item.ID)" class="btn btn-outline-success m-2" data-toggle="modal" data-target="#project">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button id="@item.ID" type="button" onclick="DeleteProject(@item.ID)" class="btn btn-outline-danger m-2">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -91,11 +96,11 @@
                             <input type="text" class="form-control" id="DateCriation">
                         </div>
                         <div class="col-6">
-                            <label for="Language" class="col-form-label">Ferramenta</label>
-                            <select id="Language"
+                            <label for="Tools" class="col-form-label">Ferramentas</label>
+                            <select id="Tools"
                                     class="form-control"
-                                    asp-items="Html.GetEnumSelectList<Language>()">
-                                <option>Selecionar Ferramenta ...</option>
+                                    asp-items="Html.GetEnumSelectList<Tool>()"
+                                    multiple>
                             </select>
                         </div>
                         <div class="col-12">
