@@ -1,4 +1,8 @@
-﻿@model IEnumerable<PrjPortfolio.Models.Portfolio>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<PrjPortfolio.Models.Portfolio>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Inicio";
@@ -11,8 +15,27 @@
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <partial name="_LoginPartial" />
-    </div>
+        <div class="navbar-collapse collapse flex-sm-row-reverse">
+            <ul class="navbar-nav">
+                @if (SignInManager.IsSignedIn(User))
+                {
+
+                    <li class="nav-item">
+                        @if (Model.Any(x => x.AspNetUsersID == UserManager.GetUserId(User)))
+                        {
+                            <a class="btn btn-outline-success" role="button" asp-action="Edit" asp-route-id="@Model.FirstOrDefault(x => x.AspNetUsersID == UserManager.GetUserId(User)).ID">Edite Seu Portfolio</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-success" role="button" asp-action="Create">Crie Seu Portfolio</a>
+                        }
+
+                    </li>
+
+                }
+                <partial name="_LoginPartial" />
+            </ul>
+        </div>
 </nav>
 <div class="container pt-3">
     <div class="row">
