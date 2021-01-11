@@ -11,7 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PrjPortfolio.Data;
+using PrjPortfolio.Interfaces;
 using PrjPortfolio.Models;
+using PrjPortfolio.Services;
 
 namespace PrjPortfolio
 {
@@ -32,7 +34,7 @@ namespace PrjPortfolio
             services.AddDbContext<PortfolioContext>(options =>
                 options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddMvc();
+            services.AddScoped<IPictureService, PictureAzureBlobService>();
             services.AddRazorPages();
         }
 
