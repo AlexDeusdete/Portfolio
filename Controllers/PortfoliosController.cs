@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrjPortfolio.Data;
+using PrjPortfolio.Interfaces;
 using PrjPortfolio.Models;
 using PrjPortfolio.Utils;
 using SQLitePCL;
@@ -22,13 +23,16 @@ namespace PrjPortfolio.Controllers
     {
         private readonly PortfolioContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IPictureService _pictureService;
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         public PortfoliosController(PortfolioContext context,
-                                    UserManager<ApplicationUser> userManager)
+                                    UserManager<ApplicationUser> userManager,
+                                    IPictureService pictureService)
         {
             _context = context;
-            _userManager = userManager;            
+            _userManager = userManager;
+            _pictureService = pictureService;
         }
 
         // GET: Portfolios
@@ -160,16 +164,19 @@ namespace PrjPortfolio.Controllers
                 {
                     if(Img != null)
                     {
-                        portfolio.Person.Photo = Img.ToByteArray();
-                        portfolio.Person.PhotoName = Path.GetFileName(Img.Name);
+                        portfolio.Person.PhotoUrl = await _pictureService.UploadImage("PersonImg"+ id + Path.GetExtension(Img.FileName), Img.ContentType, Img.OpenReadStream());
                         portfolio.Person.ContentTypeImage = Img.ContentType;
 
                         if (!TryValidateModel(portfolio))
                         {
+                            await _pictureService.DeleteImage("PersonImg" + id + Path.GetExtension(Img.FileName));
+                            portfolio.Person.PhotoUrl = "";
                             return View(portfolio);
                         }
                     }
 
+                    if (string.IsNullOrEmpty(portfolio.Person.PhotoUrl))
+                        portfolio.Person.PhotoUrl = "~/Images/no-picture-taking.png";
 
                     _context.Update(portfolio);
                     await _context.SaveChangesAsync();
@@ -223,47 +230,6 @@ namespace PrjPortfolio.Controllers
         private bool PortfolioExists(int id)
         {
             return _context.Portfolios.Any(e => e.ID == id);
-        }
-
-        [HttpGet]
-        [ResponseCache(Duration = 3600)]
-        public FileResult RenderPhotoById(string type, int id)
-        {            
-            switch (type)
-            {
-                case "person":
-                    var itemp = _context.People
-                        .Where(x => x.ID == id)
-                        .Select(s => new { s.Photo, s.ContentTypeImage })
-                        .FirstOrDefault();
-                    if (itemp.Photo != null)
-                    {
-                        return File(itemp.Photo, itemp.ContentTypeImage);
-                    }
-                    break;
-                case "portfolio":
-                    var itempor = _context.Portfolio_ImagesDB
-                        .Where(x => x.PortfolioID == id)
-                        .Select(s => new { s.Photo, s.ContentTypeImage })
-                        .FirstOrDefault();
-                    if (itempor.Photo != null)
-                    {
-                        return File(itempor.Photo, itempor.ContentTypeImage);
-                    }
-                    break;
-                case "project":
-                    var itempro = _context.Portfolio_Projects_Images
-                        .Where(x => x.ID == id)
-                        .Select(s => new { s.Photo, s.ContentTypeImage })
-                        .FirstOrDefault();
-                    if (itempro.Photo != null)
-                    {
-                        return File(itempro.Photo, itempro.ContentTypeImage);
-                    }
-                    break;
-            }
-
-            return File("~/Images/no-picture-taking.png", "Image/png");
         }
 
         [HttpGet]
@@ -341,22 +307,30 @@ namespace PrjPortfolio.Controllers
         }
 
         [HttpPost]
-        public IActionResult InsertImage(int portfolioID, IFormFile file)
+        public async Task<IActionResult> InsertImage(int portfolioID, IFormFile file)
         {
             if (file != null)
             {
+                Random r = new Random();
                 Portfolio_Images img = new Portfolio_Images
                 {
                     PortfolioID = portfolioID,
-                    Photo = file.ToByteArray(),
-                    PhotoName = Path.GetFileName(file.Name),
+                    PhotoName = "Port_" + portfolioID + "_" + r.Next() + Path.GetExtension(file.FileName),
                     ContentTypeImage = file.ContentType
                 };
 
+                img.PhotoUrl = await _pictureService.UploadImage(img.PhotoName, file.ContentType, file.OpenReadStream());
+                img.ContentTypeImage = file.ContentType;
+
                 if (!TryValidateModel(img))
                 {
+                    await _pictureService.DeleteImage(img.PhotoName);
+                    img.PhotoUrl = "";
                     return ViewComponent("PortfolioImage", new { portfolioID });
                 }
+
+                if (string.IsNullOrEmpty(img.PhotoUrl))
+                    img.PhotoUrl = "~/Images/no-picture-taking.png";
 
                 _context.Update(img);
                 _context.SaveChanges();
@@ -365,22 +339,30 @@ namespace PrjPortfolio.Controllers
         }
 
         [HttpPost]
-        public IActionResult InsertImageProject(int portfolio_ProjectsID, IFormFile file)
+        public async Task<IActionResult> InsertImageProject(int portfolio_ProjectsID, IFormFile file)
         {
             if (file != null)
             {
+                Random r = new Random();
                 Portfolio_Projects_Images img = new Portfolio_Projects_Images
                 {
                     Portfolio_ProjectsID = portfolio_ProjectsID,
-                    Photo = file.ToByteArray(),
-                    PhotoName = Path.GetFileName(file.Name),
+                    PhotoName = "PortProject_" + portfolio_ProjectsID + "_" + r.Next() + Path.GetExtension(file.FileName),
                     ContentTypeImage = file.ContentType
                 };
 
+                img.PhotoUrl = await _pictureService.UploadImage(img.PhotoName , file.ContentType, file.OpenReadStream());
+                img.ContentTypeImage = file.ContentType;
+
                 if (!TryValidateModel(img))
                 {
+                    await _pictureService.DeleteImage(img.PhotoName);
+                    img.PhotoUrl = "";
                     return ViewComponent("ProjectImage", new { portfolio_ProjectsID });
                 }
+
+                if (string.IsNullOrEmpty(img.PhotoUrl))
+                    img.PhotoUrl = "~/Images/no-picture-taking.png";
 
                 _context.Update(img);
                 _context.SaveChanges();

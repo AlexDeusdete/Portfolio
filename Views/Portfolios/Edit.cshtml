@@ -36,6 +36,8 @@
         <input type="hidden" asp-for="AspNetUsersID" />
         <input type="hidden" asp-for="PersonID" />
         <input type="hidden" asp-for="Person.ID" />
+        <input type="hidden" asp-for="Person.PhotoUrl" />
+        <input type="hidden" asp-for="Person.ContentTypeImage" />
 
         <div id="Person" class="row mb-3" style="padding-top: 4rem !important;">
             <div class="col-12 font-weight-bold border-top"><h3>Dados Pessoais</h3></div>
@@ -81,13 +83,13 @@
                 <div class="form-group text-center">
 
                     <img id="imgFoto" class="shadow rounded-circle img-fluid mx-auto d-block"
-                         src="@Url.Action("RenderPhotoById", "Portfolios", new {type = "person", id = Model.PersonID})"
+                         src="@Model.Person.PhotoUrl"
                          style="width:50%;" />
 
                     <span class="shadow btn btn-primary btn-file mt-3" role="button">
                         Add Foto <input type="file" name="Img" onchange="UploadImage(event)">
                     </span>
-                    <span asp-validation-for="Person.Photo" class="text-danger"></span>
+                    <span asp-validation-for="Person.PhotoUrl" class="text-danger"></span>
                 </div>
                 <div class="row border" id="socialMedias">
                     @await Component.InvokeAsync("SocialMedia", new { personID = Model.PersonID })

@@ -36,13 +36,13 @@ namespace PrjPortfolio.Services
 
         }
 
-        public async Task<string> UploadImage(string fileName, Stream image)
+        public async Task<string> UploadImage(string fileName, string contentType, Stream image)
         {
             BlobClient blobClient = _containerClient.GetBlobClient(fileName);
-            var result = await blobClient.UploadAsync(image, new BlobHttpHeaders { ContentType = "image/png" });
+            var result = await blobClient.UploadAsync(image, new BlobHttpHeaders { ContentType = contentType });
 
             if (result.GetRawResponse().Status == 201)
-                return "https://crochet.blob.core.windows.net/thumbnails/" + fileName;
+                return "https://crochet.blob.core.windows.net/pictures/" + fileName;
             else
                 return "";
         }

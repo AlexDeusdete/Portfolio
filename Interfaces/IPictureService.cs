@@ -6,6 +6,6 @@ namespace PrjPortfolio.Interfaces
     public interface IPictureService
     {
         Task<bool> DeleteImage(string fileName);
-        Task<string> UploadImage(string fileName, Stream image);
+        Task<string> UploadImage(string fileName, string contentType, Stream image);
     }
 }

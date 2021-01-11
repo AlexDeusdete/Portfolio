@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PrjPortfolio.Validation
@@ -28,8 +29,11 @@ namespace PrjPortfolio.Validation
             if (value == null)
                 return ValidationResult.Success;
 
-            MemoryStream ms = new MemoryStream((byte[])value);
-            var img = Image.FromStream(ms);
+            WebClient wc = new WebClient();
+            byte[] bytes = wc.DownloadData(value.ToString());
+            MemoryStream ms = new MemoryStream(bytes);
+            Image img = Image.FromStream(ms);
+
             double h = img.Height;
             double w = img.Width;
 

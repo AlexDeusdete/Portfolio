@@ -35,10 +35,9 @@ namespace PrjPortfolio.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [ImageSize(600,600,1)]
-        public byte[] Photo { get; set; }
-        [StringLength(200)]
-        public string PhotoName { get; set; }
+        [StringLength(1000)]
+        [ImageSize(600, 600, 1)]
+        public string PhotoUrl { get; set; }
         [StringLength(20)]
         public string ContentTypeImage { get; set; }
         [Display(Name = "Idade")]

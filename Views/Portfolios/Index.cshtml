@@ -42,7 +42,7 @@
         @foreach (var item in Model)
         {
             <div class="col-lg-4 text-center">
-                <img class="bd-placeholder-img rounded-circle img-thumbnail" width="140" height="140" src="~/Images/no-picture-taking.png" role="img" alt="Sem Foto" />
+                <img class="bd-placeholder-img rounded-circle img-thumbnail" width="140" height="140" src="@item.Person.PhotoUrl" role="img"/>
                 <h2>@Html.DisplayFor(modelItem => item.Person.Name)</h2>
                 <p>@Html.DisplayFor(modelItem => item.Description)</p>
                 <p><a class="btn btn-secondary" role="button" asp-action="Details" asp-route-id="@item.ID">Detalhes</a></p>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrjPortfolio.Data;
 
 namespace PrjPortfolio.Migrations
 {
     [DbContext(typeof(PortfolioContext))]
-    partial class PortfolioContextModelSnapshot : ModelSnapshot
+    [Migration("20210111012729_AlterPhotoToUrl")]
+    partial class AlterPhotoToUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,12 +393,12 @@ namespace PrjPortfolio.Migrations
                     b.Property<string>("ContentTypeImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("PhotoName")
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
-
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PortfolioID")
                         .HasColumnType("int");
@@ -453,12 +455,12 @@ namespace PrjPortfolio.Migrations
                     b.Property<string>("ContentTypeImage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("PhotoName")
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
-
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Portfolio_ProjectsID")
                         .HasColumnType("int");
